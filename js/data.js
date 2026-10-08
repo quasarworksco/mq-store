@@ -31,6 +31,18 @@ window.MQ_DATA = {
       tagline: { es: 'Energía de respaldo para que tu hogar no se detenga.', en: 'Backup power so your home keeps going.' } }
   ],
 
+  // "¿Qué necesitas?": accesos directos según la necesidad del cliente
+  needs: [
+    { icon: 'glass', color: '#0ea5e9', to: 'p/k10', title: { es: 'Agua purificada para beber', en: 'Purified drinking water' }, text: { es: 'Ósmosis inversa en tu cocina', en: 'Reverse osmosis in your kitchen' } },
+    { icon: 'drop', color: '#0284c7', to: 'p/puronics-softener', title: { es: 'Agua dura y sarro', en: 'Hard water & scale' }, text: { es: 'Suavizador para todo el hogar', en: 'Whole-home softener' } },
+    { icon: 'well', color: '#0369a1', to: 'p/puronics-agua-de-pozo', title: { es: 'Tengo agua de pozo', en: 'I have well water' }, text: { es: 'Tratamiento según tu agua', en: 'Treatment for your water' } },
+    { icon: 'sparkle', color: '#14b8a6', to: 'p/hyla', title: { es: 'Limpieza profunda', en: 'Deep cleaning' }, text: { es: 'Filtración con agua HYLA', en: 'HYLA water filtration' } },
+    { icon: 'chair', color: '#8b5cf6', to: 'c/relajacion', title: { es: 'Relajarme en casa', en: 'Relax at home' }, text: { es: 'Sillones de masaje Bodyfriend', en: 'Bodyfriend massage chairs' } },
+    { icon: 'bolt', color: '#eab308', to: 'p/bluetti', title: { es: 'Respaldo ante apagones', en: 'Backup for outages' }, text: { es: 'Energía BLUETTI', en: 'BLUETTI power' } },
+    { icon: 'leaf', color: '#22c55e', to: 'p/yarbo', title: { es: 'Cuidar mi jardín', en: 'Care for my yard' }, text: { es: 'Robot modular Yarbo', en: 'Yarbo modular robot' } },
+    { icon: 'pot', color: '#f97316', to: 'p/lifetime', title: { es: 'Disfrutar mi cocina', en: 'Enjoy my kitchen' }, text: { es: 'Línea Lifetime', en: 'Lifetime line' } }
+  ],
+
   products: [
     /* ---------- 1. Agua pura y bienestar ---------- */
     { slug: 'puronics-softener', cat: 'agua', brand: 'Puronics', name: 'Puronics Softener', featured: true,

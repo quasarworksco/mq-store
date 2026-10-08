@@ -1,8 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MQ Store">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 64" role="img" aria-label="MQ Store">
   <defs>
-    <linearGradient id="mqg" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0b2a5b"/><stop offset=".55" stop-color="#1d5bd8"/><stop offset="1" stop-color="#22c3ee"/>
-    </linearGradient>
+    <linearGradient id="mqg" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0b2a5b"/><stop offset=".55" stop-color="#1d5bd8"/><stop offset="1" stop-color="#22c3ee"/></linearGradient>
     <linearGradient id="mqs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
   </defs>
   <path d="M32 3C32 3 9 25.5 9 40.5 9 53.2 19.3 62 32 62s23-8.8 23-21.5C55 25.5 32 3 32 3z" fill="url(#mqg)"/>
@@ -10,4 +8,6 @@
   <path d="M15.5 39.5c4.2-3.6 8.4-3.6 12.6 0s8.4 3.6 12.6 0 6.3-3.6 8.1-2.4" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/>
   <path d="M17.5 47.5c3.8-3 7.6-3 11.4 0s7.6 3 11.4 0 5.6-2.9 6.9-2" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
   <circle cx="40.5" cy="25" r="3.2" fill="#fff" fill-opacity=".9"/>
+  <text x="68" y="43" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="30" font-weight="800" fill="#0b2a5b" letter-spacing="-.5">MQ</text>
+  <text x="118" y="43" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="30" font-weight="500" fill="#1d5bd8" letter-spacing="-.3">Store</text>
 </svg>
