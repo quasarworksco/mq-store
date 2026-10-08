@@ -857,3 +857,39 @@ button { font: inherit; cursor: pointer; color: inherit; }
 @media (max-width: 900px) { .hero-photo { max-width: 620px; margin: 0 auto; } }
 @media (max-width: 680px) { .hero-photo { aspect-ratio: 16 / 10; border-radius: 20px; height: auto; } }
 @media (prefers-reduced-motion: reduce) { .hero-photo img { animation: none; } .hero-photo { opacity: 1; } }
+
+/* v7 — Foto integrada al fondo de la portada (lado derecho) */
+.hero-v5 { background: #0a1f44; }
+.hero-v5::before { display: none; }
+.hero-bgphoto { position: absolute; top: 0; right: 0; bottom: 0; width: 58%; z-index: 0; overflow: hidden; }
+.hero-bgphoto img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; animation: kenburns 24s ease-in-out infinite alternate; }
+/* Fundido hacia el azul corporativo (izquierda) y hacia la ola (abajo) */
+.hero-bgphoto::after { content: ''; position: absolute; inset: 0; background:
+  linear-gradient(90deg, #0a1f44 0%, rgba(10, 31, 68, .92) 14%, rgba(10, 31, 68, .55) 38%, rgba(10, 31, 68, .15) 65%, rgba(10, 31, 68, .05) 100%),
+  linear-gradient(180deg, rgba(10, 31, 68, .35) 0%, transparent 25%, transparent 70%, rgba(10, 31, 68, .55) 100%); }
+.hero-bgphoto.no-photo { background: linear-gradient(135deg, #0b2a5b, #12407f); }
+.hero-v5 .blob.b1 { left: -160px; right: auto; top: -180px; background: #1d4ed8; opacity: .4; }
+.hero-v5 .blob.b2 { left: 20%; bottom: -260px; background: #0ea5e9; opacity: .18; }
+.hero-v5 .hero-in { position: relative; z-index: 2; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); padding: 96px 0 170px; }
+.hero-v5 .hero-copy { max-width: 620px; }
+.hero-v5 h1 { text-shadow: 0 2px 24px rgba(0, 0, 0, .25); }
+.hero-space { min-height: 1px; }
+.hero-wave { z-index: 1; }
+@media (max-width: 1120px) {
+  .hero-bgphoto { width: 62%; }
+  .hero-v5 .hero-in { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); padding: 80px 0 160px; }
+}
+@media (max-width: 900px) {
+  .hero-bgphoto { width: 100%; }
+  .hero-bgphoto::after { background: linear-gradient(180deg, rgba(10, 31, 68, .78) 0%, rgba(10, 31, 68, .82) 60%, rgba(10, 31, 68, .92) 100%); }
+  .hero-v5 .hero-in { grid-template-columns: minmax(0, 1fr); padding: 64px 0 140px; }
+  .hero-space { display: none; }
+}
+@media (max-width: 680px) { .hero-v5 .hero-in { padding: 48px 0 118px; } }
+@media (prefers-reduced-motion: reduce) { .hero-bgphoto img { animation: none; } }
+.pcat { width: 30px; height: 30px; padding: 0; justify-content: center; border-radius: 50%; background: color-mix(in srgb, var(--c) 14%, #fff); }
+.pcat .i { width: 15px; height: 15px; }
+@media (max-width: 680px) { .pcat { width: 28px; height: 28px; padding: 0; } .pcat .i { width: 14px; height: 14px; } }
+.hero-bgphoto { -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 18%, #000 52%); mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 18%, #000 52%); }
+.hero-bgphoto::after { background: linear-gradient(90deg, rgba(10, 31, 68, .55) 0%, rgba(10, 31, 68, .25) 45%, rgba(10, 31, 68, .08) 100%), linear-gradient(180deg, rgba(10, 31, 68, .3) 0%, transparent 25%, transparent 70%, rgba(10, 31, 68, .5) 100%); }
+@media (max-width: 900px) { .hero-bgphoto { -webkit-mask-image: none; mask-image: none; } .hero-bgphoto::after { background: linear-gradient(180deg, rgba(10, 31, 68, .78) 0%, rgba(10, 31, 68, .82) 60%, rgba(10, 31, 68, .92) 100%); } }

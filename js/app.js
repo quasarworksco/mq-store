@@ -236,7 +236,7 @@
     return `<article class="pcard reveal" style="--c:${c.color}">
       <a class="pimg" href="#/p/${p.slug}" aria-label="${esc(pName(p))}">
         ${media(p, 480, true)}
-        <span class="pcat">${icon(c.icon)}${esc(L(c.short || c.name))}</span>
+        <span class="pcat" title="${esc(L(c.name))}">${icon(c.icon)}</span>
         <span class="pflags">${p.video ? `<span class="pflag" title="Video">${icon('play')}</span>` : ''}${n > 1 ? `<span class="pflag">${icon('camera')}${n}</span>` : ''}</span>
       </a>
       <button class="psave ${inList(p.slug) ? 'on' : ''}" data-save="${p.slug}" aria-pressed="${inList(p.slug)}" title="${t('add_list')}" aria-label="${t('add_list')}">${icon('bookmark', 'sm')}</button>
@@ -346,6 +346,7 @@
         <div class="hero-bg" aria-hidden="true">
           <span class="blob b1"></span><span class="blob b2"></span>
         </div>
+        ${heroArt()}
         <div class="wrap hero-in">
           <div class="hero-copy">
             <span class="eyebrow anim" style="--i:0"><span class="dot"></span>${t('hero_kicker')}</span>
@@ -357,7 +358,7 @@
             </div>
             <div class="hero-meta anim" style="--i:4"><span>${icon('check', 'sm')}${t('hero_m1')}</span><span>${icon('check', 'sm')}${t('hero_m2')}</span><span>${icon('check', 'sm')}${t('hero_m3')}</span></div>
           </div>
-          ${heroArt()}
+          <div class="hero-space" aria-hidden="true"></div>
         </div>
         <svg class="hero-wave" viewBox="0 0 2880 120" preserveAspectRatio="none" aria-hidden="true">
           <path class="w1" d="M0 60 C 240 20 480 100 720 60 S 1200 20 1440 60 S 1920 100 2160 60 S 2640 20 2880 60 V120 H0 Z"/>
@@ -431,7 +432,7 @@
   ];
   function heroArt() {
     const list = contact.heroImage ? [img(contact.heroImage, 1400)].concat(HERO_PHOTOS) : HERO_PHOTOS;
-    return `<div class="hero-art hero-photo"><img src="${esc(list[0])}" data-alts="${esc(JSON.stringify(list.slice(1)))}" alt="${lang === 'en' ? 'Modern home' : 'Hogar moderno'}" fetchpriority="high" onerror="var a=JSON.parse(this.dataset.alts||'[]');if(a.length){this.dataset.alts=JSON.stringify(a.slice(1));this.src=a[0];}else{this.parentNode.classList.add('no-photo');this.remove();}"></div>`;
+    return `<div class="hero-bgphoto"><img src="${esc(list[0])}" data-alts="${esc(JSON.stringify(list.slice(1)))}" alt="${lang === 'en' ? 'Modern home' : 'Hogar moderno'}" fetchpriority="high" onerror="var a=JSON.parse(this.dataset.alts||'[]');if(a.length){this.dataset.alts=JSON.stringify(a.slice(1));this.src=a[0];}else{this.parentNode.classList.add('no-photo');this.remove();}"></div>`;
   }
 
   function productPage(slug) {
