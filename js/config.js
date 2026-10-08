@@ -23,7 +23,8 @@ window.MQ_CONFIG = {
     address: '8001 S Orange Blossom Trail, Orlando, FL 32809',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=The+Florida+Mall+Orlando+FL',
     instagram: '',
-    facebook: ''
+    facebook: '',
+    heroImage: ''                   // foto de portada (se cambia desde el CRM)
   },
   crmUrl: 'https://crmsystempb.dgp-link.com'
 };

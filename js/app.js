@@ -68,7 +68,7 @@
   const T = {
     es: {
       nav_products: 'Productos', nav_reviews: 'Testimonios', nav_jobs: 'Trabaja con nosotros', nav_contact: 'Contacto',
-      all: 'Todo', search_short: 'Buscar productos', shop_by: 'Compra por categoría', price_ask: 'Consultar precio', sort_by: 'Ordenar por', sort_rec: 'Recomendados', sort_cat: 'Categoría', sort_az: 'Nombre (A–Z)', cta_short: 'Solicitar info', details: 'Ver detalles', search_ph: 'Buscar: agua, masaje, limpieza, energía…', search_btn: 'Buscar', search_none: 'No encontramos productos con esa búsqueda.', search_try: 'Prueba con',
+      all: 'Todo', search_short: 'Buscar productos', shop_by: 'Compra por categoría', price_ask: 'Consultar precio', made_by: 'Diseñado y desarrollado por', sort_by: 'Ordenar por', sort_rec: 'Recomendados', sort_cat: 'Categoría', sort_az: 'Nombre (A–Z)', cta_short: 'Solicitar info', details: 'Ver detalles', search_ph: 'Buscar: agua, masaje, limpieza, energía…', search_btn: 'Buscar', search_none: 'No encontramos productos con esa búsqueda.', search_try: 'Prueba con',
       cta: 'Solicitar información', cta_full: 'Solicitar información o demostración', demo: 'Solicitar una demostración',
       hero_kicker: 'The Florida Mall · Orlando',
       hero_title: 'Agua pura, bienestar y <em>tecnología</em> para tu hogar',
@@ -115,7 +115,7 @@
     },
     en: {
       nav_products: 'Products', nav_reviews: 'Reviews', nav_jobs: 'Careers', nav_contact: 'Contact',
-      all: 'All', search_short: 'Search products', shop_by: 'Shop by category', price_ask: 'Ask for price', sort_by: 'Sort by', sort_rec: 'Recommended', sort_cat: 'Category', sort_az: 'Name (A–Z)', cta_short: 'Request info', details: 'Details', search_ph: 'Search: water, massage, cleaning, power…', search_btn: 'Search', search_none: 'No products match your search.', search_try: 'Try',
+      all: 'All', search_short: 'Search products', shop_by: 'Shop by category', price_ask: 'Ask for price', made_by: 'Designed & developed by', sort_by: 'Sort by', sort_rec: 'Recommended', sort_cat: 'Category', sort_az: 'Name (A–Z)', cta_short: 'Request info', details: 'Details', search_ph: 'Search: water, massage, cleaning, power…', search_btn: 'Search', search_none: 'No products match your search.', search_try: 'Try',
       cta: 'Request information', cta_full: 'Request information or a demo', demo: 'Request a demonstration',
       hero_kicker: 'The Florida Mall · Orlando',
       hero_title: 'Pure water, wellness and <em>technology</em> for your home',
@@ -233,7 +233,7 @@
   const card = (p) => {
     const c = catById(p.cat);
     const n = (p.images || []).length;
-    return `<article class="pcard" style="--c:${c.color}">
+    return `<article class="pcard reveal" style="--c:${c.color}">
       <a class="pimg" href="#/p/${p.slug}" aria-label="${esc(pName(p))}">
         ${media(p, 480, true)}
         <span class="pcat">${icon(c.icon)}${esc(L(c.short || c.name))}</span>
@@ -281,6 +281,7 @@
     const box = $('#catalog');
     if (!box) return false;
     box.innerHTML = catalogHTML();
+    reveal(box);
     catbar(filter);
     const on = $('.filters .fchip.on');
     if (on) { const f = on.parentElement; f.scrollLeft = on.offsetLeft - (f.clientWidth - on.offsetWidth) / 2; }
@@ -332,7 +333,7 @@
           <li><a href="${esc(ct.mapsUrl)}" target="_blank" rel="noopener">${esc(ct.location)}<br>${esc(ct.address)}</a></li>
         </ul></div>
       </div>
-      <div class="foot-bottom"><span>© ${new Date().getFullYear()} MQ Store. ${t('rights')}</span><span>Orlando, Florida</span></div>
+      <div class="foot-bottom"><span>© ${new Date().getFullYear()} MQ Store · Orlando, Florida. ${t('rights')}</span><a class="sign" href="https://dgpglobalgroup.com" target="_blank" rel="noopener">${t('made_by')} <b>DGP Global Group</b></a></div>
     </div>`;
   }
   const prettyPhone = (p) => { const d = String(p).replace(/\D/g, '').slice(-10); return d.length === 10 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : p; };
@@ -341,16 +342,28 @@
   function home() {
     const ct = contact;
     return `
-      <section class="hero">
-        <div class="wrap hero-in">
-          <span class="eyebrow"><span class="dot"></span>${t('hero_kicker')}</span>
-          <h1>${t('hero_title')}</h1>
-          <p class="lead">${t('hero_lead')}</p>
-          <div class="hero-ctas">
-            <a class="btn white" href="#/" data-go="catalog">${t('see_catalog')} ${icon('arrow', 'sm')}</a>
-            <button class="btn outline-w" data-lead="">${t('demo')}</button>
-          </div>
+      <section class="hero hero-v5">
+        <div class="hero-bg" aria-hidden="true">
+          <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+          <div class="bubbles">${Array.from({ length: 14 }, (_, i) => `<span style="--x:${(i * 37) % 100}%;--s:${6 + (i * 7) % 16}px;--d:${7 + (i * 3) % 9}s;--w:${(i * 1.3) % 7}s"></span>`).join('')}</div>
         </div>
+        <div class="wrap hero-in">
+          <div class="hero-copy">
+            <span class="eyebrow anim" style="--i:0"><span class="dot"></span>${t('hero_kicker')}</span>
+            <h1 class="anim" style="--i:1">${t('hero_title')}</h1>
+            <p class="lead anim" style="--i:2">${t('hero_lead')}</p>
+            <div class="hero-ctas anim" style="--i:3">
+              <a class="btn white" href="#/" data-go="catalog">${t('see_catalog')} ${icon('arrow', 'sm')}</a>
+              <button class="btn outline-w" data-lead="">${icon('calendar', 'sm')} ${t('demo')}</button>
+            </div>
+            <div class="hero-meta anim" style="--i:4"><span>${icon('check', 'sm')}${t('hero_m1')}</span><span>${icon('check', 'sm')}${t('hero_m2')}</span><span>${icon('check', 'sm')}${t('hero_m3')}</span></div>
+          </div>
+          ${heroArt()}
+        </div>
+        <svg class="hero-wave" viewBox="0 0 2880 120" preserveAspectRatio="none" aria-hidden="true">
+          <path class="w1" d="M0 60 C 240 20 480 100 720 60 S 1200 20 1440 60 S 1920 100 2160 60 S 2640 20 2880 60 V120 H0 Z"/>
+          <path class="w2" d="M0 80 C 240 50 480 110 720 80 S 1200 50 1440 80 S 1920 110 2160 80 S 2640 50 2880 80 V120 H0 Z"/>
+        </svg>
       </section>
 
       <section class="shopcats"><div class="wrap">
@@ -407,6 +420,62 @@
           <div class="cta-band reveal"><h3>${t('band_t')}</h3><p>${t('band_p')}</p><div><button class="btn white" data-lead="">${t('demo')} ${icon('arrow', 'sm')}</button></div></div>
         </div>
       </div></section>`;
+  }
+
+  // Imagen de la portada: la foto que se suba en el CRM (Datos de contacto → Foto de portada) o una ilustración del hogar
+  function heroArt() {
+    if (contact.heroImage) return `<div class="hero-art hero-photo"><img src="${esc(img(contact.heroImage, 1200))}" alt="MQ Store"><span class="hp-badge">${icon('pin', 'sm')}The Florida Mall · Orlando</span></div>`;
+    return `<div class="hero-art" aria-hidden="true">
+      <svg class="home-ill" viewBox="0 0 560 480" fill="none">
+        <defs>
+          <radialGradient id="hgGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7dd3fc" stop-opacity=".45"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient>
+          <linearGradient id="hgWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe8ff"/></linearGradient>
+          <linearGradient id="hgRoof" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d5bd8"/><stop offset="1" stop-color="#0b2a5b"/></linearGradient>
+          <linearGradient id="hgDrop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset="1" stop-color="#0284c7"/></linearGradient>
+          <linearGradient id="hgWin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#fbbf24"/></linearGradient>
+          <linearGradient id="hgSolar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#312e81"/></linearGradient>
+        </defs>
+        <circle cx="290" cy="230" r="220" fill="url(#hgGlow)"/>
+        <circle class="orbit" cx="290" cy="235" r="200" stroke="#fff" stroke-opacity=".16" stroke-dasharray="4 10"/>
+        <ellipse cx="290" cy="418" rx="230" ry="26" fill="#000" fill-opacity=".18"/>
+        <!-- Casa -->
+        <path d="M150 230 L290 120 L430 230 V410 H150 Z" fill="url(#hgWall)"/>
+        <path d="M128 240 L290 110 L452 240" stroke="url(#hgRoof)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="360" y="132" width="26" height="54" rx="4" fill="#0b2a5b"/>
+        <!-- Panel solar -->
+        <g transform="translate(305 168) skewY(37) " ><rect width="70" height="34" rx="4" fill="url(#hgSolar)"/><path d="M23 0v34M47 0v34M0 17h70" stroke="#93c5fd" stroke-opacity=".6" stroke-width="1.5"/></g>
+        <!-- Ventanas -->
+        <rect class="win" x="182" y="262" width="66" height="56" rx="8" fill="url(#hgWin)"/>
+        <path d="M215 262v56M182 290h66" stroke="#fff" stroke-width="4"/>
+        <rect class="win w2" x="332" y="262" width="66" height="56" rx="8" fill="url(#hgWin)"/>
+        <path d="M365 262v56M332 290h66" stroke="#fff" stroke-width="4"/>
+        <!-- Puerta -->
+        <rect x="262" y="318" width="56" height="92" rx="8" fill="#1d5bd8"/>
+        <circle cx="306" cy="366" r="4" fill="#fde68a"/>
+        <!-- Gota de agua -->
+        <g class="drop">
+          <path d="M112 236 C112 236 66 292 66 324 C66 350 87 370 112 370 C137 370 158 350 158 324 C158 292 112 236 112 236 Z" fill="url(#hgDrop)" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>
+          <path d="M84 326 c8-7 16-7 24 0 s16 7 24 0" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+          <path d="M88 344 c7-6 14-6 21 0 s14 6 21 0" stroke="#fff" stroke-opacity=".7" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="128" cy="296" r="6" fill="#fff" fill-opacity=".85"/>
+        </g>
+        <!-- Planta -->
+        <g class="plant">
+          <path d="M470 410 h50 l-7 -40 h-36 z" fill="#f97316"/>
+          <path d="M495 372 C495 340 478 318 462 312 C470 336 480 352 495 372 Z" fill="#22c55e"/>
+          <path d="M495 372 C496 336 512 312 532 306 C526 334 512 356 495 372 Z" fill="#16a34a"/>
+          <path d="M495 372 C493 350 497 330 506 316" stroke="#15803d" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <!-- Energía -->
+        <g class="bolt"><circle cx="470" cy="150" r="30" fill="#eab308"/><path d="M474 132 l-16 22 h12 l-4 18 16 -22 h-12 z" fill="#fff"/></g>
+        <!-- Destellos de limpieza -->
+        <path class="spark s1" d="M210 120 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6 z" fill="#5eead4"/>
+        <path class="spark s2" d="M420 300 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z" fill="#fff"/>
+        <path class="spark s3" d="M96 180 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" fill="#c4b5fd"/>
+      </svg>
+      <span class="hchip hchip1">${icon('home', 'sm')}${t('hero_m1')}</span>
+      <span class="hchip hchip2">${icon('pin', 'sm')}The Florida Mall</span>
+    </div>`;
   }
 
   function productPage(slug) {
@@ -751,7 +820,7 @@
 
   /* ---------- Animación al aparecer ---------- */
   const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -40px 0px' }) : null;
-  function reveal(root = document) { $$('.reveal:not(.in)', root).forEach((el) => (io ? io.observe(el) : el.classList.add('in'))); }
+  function reveal(root = document) { $$('.reveal:not(.in)', root).forEach((el, i) => { if (el.classList.contains('pcard')) el.style.transitionDelay = `${(i % 5) * 60}ms`; io ? io.observe(el) : el.classList.add('in'); }); }
 
   /* ---------- Navegación ---------- */
   let pendingScroll = null;
@@ -806,7 +875,7 @@
     if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName) && $('#overlay').hidden && $('#modal').hidden) { e.preventDefault(); openSearch(); }
   });
   document.addEventListener('change', (e) => {
-    if (e.target.id === 'sortSel') { sort = e.target.value; store.set('mq_sort', sort); const g = $('#catalogGrid'); if (g) g.innerHTML = sorted().map(card).join(''); }
+    if (e.target.id === 'sortSel') { sort = e.target.value; store.set('mq_sort', sort); const g = $('#catalogGrid'); if (g) { g.innerHTML = sorted().map(card).join(''); reveal(g); } }
   });
   $('#langBtn').onclick = () => { lang = lang === 'es' ? 'en' : 'es'; store.set('mq_lang', lang); render(); };
   $('#listBtn').onclick = openList;
