@@ -344,8 +344,7 @@
     return `
       <section class="hero hero-v5">
         <div class="hero-bg" aria-hidden="true">
-          <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
-          <div class="bubbles">${Array.from({ length: 14 }, (_, i) => `<span style="--x:${(i * 37) % 100}%;--s:${6 + (i * 7) % 16}px;--d:${7 + (i * 3) % 9}s;--w:${(i * 1.3) % 7}s"></span>`).join('')}</div>
+          <span class="blob b1"></span><span class="blob b2"></span>
         </div>
         <div class="wrap hero-in">
           <div class="hero-copy">
@@ -422,59 +421,17 @@
       </div></section>`;
   }
 
-  // Imagen de la portada: la foto que se suba en el CRM (Datos de contacto → Foto de portada) o una ilustración del hogar
+  // Imagen de la portada: la foto subida en el CRM o una foto real de una casa (Unsplash, uso libre).
+  // Si una foto no carga se prueba la siguiente; si ninguna carga queda un panel azul.
+  const HERO_PHOTOS = [
+    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=80',
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80',
+    'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1400&q=80',
+    'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1400&q=80'
+  ];
   function heroArt() {
-    if (contact.heroImage) return `<div class="hero-art hero-photo"><img src="${esc(img(contact.heroImage, 1200))}" alt="MQ Store"></div>`;
-    return `<div class="hero-art" aria-hidden="true">
-      <svg class="home-ill" viewBox="0 0 560 480" fill="none">
-        <defs>
-          <radialGradient id="hgGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7dd3fc" stop-opacity=".45"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient>
-          <linearGradient id="hgWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe8ff"/></linearGradient>
-          <linearGradient id="hgRoof" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d5bd8"/><stop offset="1" stop-color="#0b2a5b"/></linearGradient>
-          <linearGradient id="hgDrop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset="1" stop-color="#0284c7"/></linearGradient>
-          <linearGradient id="hgWin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#fbbf24"/></linearGradient>
-          <linearGradient id="hgSolar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#312e81"/></linearGradient>
-        </defs>
-        <circle cx="290" cy="230" r="220" fill="url(#hgGlow)"/>
-        <circle class="orbit" cx="290" cy="235" r="200" stroke="#fff" stroke-opacity=".16" stroke-dasharray="4 10"/>
-        <ellipse cx="290" cy="418" rx="230" ry="26" fill="#000" fill-opacity=".18"/>
-        <!-- Casa -->
-        <path d="M150 230 L290 120 L430 230 V410 H150 Z" fill="url(#hgWall)"/>
-        <path d="M128 240 L290 110 L452 240" stroke="url(#hgRoof)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="360" y="132" width="26" height="54" rx="4" fill="#0b2a5b"/>
-        <!-- Panel solar -->
-        <g transform="translate(305 168) skewY(37) " ><rect width="70" height="34" rx="4" fill="url(#hgSolar)"/><path d="M23 0v34M47 0v34M0 17h70" stroke="#93c5fd" stroke-opacity=".6" stroke-width="1.5"/></g>
-        <!-- Ventanas -->
-        <rect class="win" x="182" y="262" width="66" height="56" rx="8" fill="url(#hgWin)"/>
-        <path d="M215 262v56M182 290h66" stroke="#fff" stroke-width="4"/>
-        <rect class="win w2" x="332" y="262" width="66" height="56" rx="8" fill="url(#hgWin)"/>
-        <path d="M365 262v56M332 290h66" stroke="#fff" stroke-width="4"/>
-        <!-- Puerta -->
-        <rect x="262" y="318" width="56" height="92" rx="8" fill="#1d5bd8"/>
-        <circle cx="306" cy="366" r="4" fill="#fde68a"/>
-        <!-- Gota de agua -->
-        <g class="drop">
-          <path d="M112 236 C112 236 66 292 66 324 C66 350 87 370 112 370 C137 370 158 350 158 324 C158 292 112 236 112 236 Z" fill="url(#hgDrop)" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>
-          <path d="M84 326 c8-7 16-7 24 0 s16 7 24 0" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-          <path d="M88 344 c7-6 14-6 21 0 s14 6 21 0" stroke="#fff" stroke-opacity=".7" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="128" cy="296" r="6" fill="#fff" fill-opacity=".85"/>
-        </g>
-        <!-- Planta -->
-        <g class="plant">
-          <path d="M470 410 h50 l-7 -40 h-36 z" fill="#f97316"/>
-          <path d="M495 372 C495 340 478 318 462 312 C470 336 480 352 495 372 Z" fill="#22c55e"/>
-          <path d="M495 372 C496 336 512 312 532 306 C526 334 512 356 495 372 Z" fill="#16a34a"/>
-          <path d="M495 372 C493 350 497 330 506 316" stroke="#15803d" stroke-width="3" stroke-linecap="round"/>
-        </g>
-        <!-- Energía -->
-        <g class="bolt"><circle cx="470" cy="150" r="30" fill="#eab308"/><path d="M474 132 l-16 22 h12 l-4 18 16 -22 h-12 z" fill="#fff"/></g>
-        <!-- Destellos de limpieza -->
-        <path class="spark s1" d="M210 120 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6 z" fill="#5eead4"/>
-        <path class="spark s2" d="M420 300 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z" fill="#fff"/>
-        <path class="spark s3" d="M96 180 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" fill="#c4b5fd"/>
-      </svg>
-      <span class="hchip hchip1">${icon('home', 'sm')}${t('hero_m1')}</span>
-    </div>`;
+    const list = contact.heroImage ? [img(contact.heroImage, 1400)].concat(HERO_PHOTOS) : HERO_PHOTOS;
+    return `<div class="hero-art hero-photo"><img src="${esc(list[0])}" data-alts="${esc(JSON.stringify(list.slice(1)))}" alt="${lang === 'en' ? 'Modern home' : 'Hogar moderno'}" fetchpriority="high" onerror="var a=JSON.parse(this.dataset.alts||'[]');if(a.length){this.dataset.alts=JSON.stringify(a.slice(1));this.src=a[0];}else{this.parentNode.classList.add('no-photo');this.remove();}"></div>`;
   }
 
   function productPage(slug) {

@@ -827,3 +827,33 @@ button { font: inherit; cursor: pointer; color: inherit; }
 @media (max-width: 680px) { .hchip2 { top: 8px; } .hchip1 { bottom: 14px; } .hero-art { height: 280px; } }
 @media (prefers-reduced-motion: reduce) { .home-ill * { animation: none !important; } }
 .hero-art .hchip { display: none; }
+
+/* =========================================================
+   v6 — Paleta corporativa (azul claro, azul oscuro, gris) y foto real en la portada
+   ========================================================= */
+:root { --cyan: #38bdf8; --sky: #e8f2fd; --gray: #64748b; }
+.hero-v5 { background: linear-gradient(135deg, #0a1f44 0%, #0b2a5b 50%, #12407f 100%); }
+.hero-v5::before { opacity: .35; }
+.hero h1 em { background: linear-gradient(90deg, #7dd3fc, #bae6fd); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.blob.b1 { background: #38bdf8; opacity: .35; }
+.blob.b2 { background: #1d4ed8; opacity: .45; }
+.blob.b3, .bubbles { display: none !important; }
+.eyebrow .dot { background: #7dd3fc; box-shadow: 0 0 0 4px rgba(125, 211, 252, .22); }
+.hero-meta .i, .hchip .i, .hp-badge .i { color: #7dd3fc; }
+.cta-band { background: linear-gradient(135deg, #0b2a5b, #1d5bd8); }
+.step .ico { background: linear-gradient(140deg, #0b2a5b, #1d5bd8); }
+.opp { background: radial-gradient(700px 400px at 100% 0%, rgba(56, 189, 248, .22), transparent 60%), linear-gradient(150deg, #0a1f44, #0b2a5b); }
+.opp .kicker, .opp li .i { color: #7dd3fc; }
+.foot .logo-text span, .sign:hover b { color: #7dd3fc; }
+.empty-rev .ico { background: var(--sky); color: #f5b301; }
+
+/* Foto real en la portada */
+.hero-photo { position: relative; height: auto; aspect-ratio: 4 / 3.1; border-radius: 26px; overflow: hidden; background: linear-gradient(150deg, #12407f, #0b2a5b); box-shadow: 0 30px 70px rgba(0, 0, 0, .35); border: 1px solid rgba(255, 255, 255, .18); opacity: 0; animation: up 1s var(--ease) .3s forwards; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.04); animation: kenburns 18s ease-in-out infinite alternate; }
+@keyframes kenburns { to { transform: scale(1.12) translate(-1.5%, -1%); } }
+.hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 31, 68, 0) 55%, rgba(10, 31, 68, .45)); pointer-events: none; }
+.hero-photo.no-photo { background: linear-gradient(150deg, #1d5bd8, #0b2a5b); }
+.hero-photo.no-photo::before { content: ''; position: absolute; inset: 0; background: url('../img/logo-mark.svg') center / 34% no-repeat; opacity: .25; }
+@media (max-width: 900px) { .hero-photo { max-width: 620px; margin: 0 auto; } }
+@media (max-width: 680px) { .hero-photo { aspect-ratio: 16 / 10; border-radius: 20px; height: auto; } }
+@media (prefers-reduced-motion: reduce) { .hero-photo img { animation: none; } .hero-photo { opacity: 1; } }
