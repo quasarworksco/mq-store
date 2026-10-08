@@ -621,3 +621,77 @@ button { font: inherit; cursor: pointer; color: inherit; }
   .hero-ctas .btn { flex: none; height: 50px; }
   .shopcats-head .link { display: none; }
 }
+
+/* =========================================================
+   v4 — Catálogo único con filtros y tarjetas compactas
+   ========================================================= */
+#catalog { scroll-margin-top: 130px; }
+.cat-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.cat-top h2 { font-size: clamp(24px, 2.8vw, 32px); font-weight: 800; }
+.cat-top p { color: var(--muted); font-size: 15px; margin-top: 4px; max-width: 620px; }
+.sort { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; font-weight: 600; white-space: nowrap; }
+.sort select { height: 40px; padding: 0 34px 0 12px; border-radius: 12px; border: 1.5px solid var(--line); background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230b2a5b' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center; -webkit-appearance: none; appearance: none; font: inherit; font-size: 14px; font-weight: 700; color: var(--ink); cursor: pointer; }
+.sort select:focus { outline: none; border-color: var(--blue); }
+.filters { display: flex; gap: 8px; margin: 18px 0 22px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.filters::-webkit-scrollbar { display: none; }
+.fchip { display: inline-flex; align-items: center; gap: 8px; flex: none; height: 42px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: #fff; color: var(--ink); font-weight: 700; font-size: 14px; transition: border-color .2s, background .2s, color .2s; }
+.fchip .i { color: var(--c); }
+.fchip b { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--bg-2); color: var(--muted); font-size: 12px; display: grid; place-items: center; }
+.fchip:hover { border-color: var(--c); }
+.fchip.on { background: var(--c); border-color: var(--c); color: #fff; }
+.fchip.on .i { color: #fff; }
+.fchip.on b { background: rgba(255, 255, 255, .25); color: #fff; }
+
+/* Tarjeta compacta con identificador de categoría */
+.grid-p { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.pcard { border-radius: 16px; border: 1px solid color-mix(in srgb, var(--c) 22%, var(--line)); box-shadow: inset 0 4px 0 var(--c); }
+.pcard:hover { border-color: color-mix(in srgb, var(--c) 45%, var(--line)); box-shadow: inset 0 4px 0 var(--c), 0 14px 34px rgba(13, 26, 51, .12); }
+.pimg { aspect-ratio: 4 / 3; margin-top: 4px; }
+.pimg img { padding: 12px; }
+.pcat { position: absolute; left: 8px; top: 8px; z-index: 1; display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px 4px 7px; border-radius: 999px; background: color-mix(in srgb, var(--c) 12%, #fff); color: color-mix(in srgb, var(--c) 75%, #0d1a33); font-size: 11.5px; font-weight: 800; letter-spacing: .01em; }
+.pcat .i { width: 13px; height: 13px; color: var(--c); }
+.pflags { left: auto; right: 8px; bottom: 8px; }
+.pflag { padding: 3px 7px; font-size: 11px; }
+.psave { top: 8px; right: 8px; width: 32px; height: 32px; }
+.psave .i { width: 15px; height: 15px; }
+.pbody { padding: 10px 12px 12px; }
+.pbrand { font-size: 11px; }
+.pname { font-size: 15px; margin-top: 2px; }
+.psub { font-size: 13px; -webkit-line-clamp: 2; min-height: 2.8em; margin-top: 2px; }
+.pprice { font-size: 13px; margin: 8px 0 10px; color: var(--c); filter: saturate(1.1) brightness(.85); }
+.pcard .btn.block { height: 38px; font-size: 13.5px; border-radius: 10px; box-shadow: none; margin-top: auto; }
+.ph .i { width: 40px; height: 40px; }
+.ph span { font-size: 13px; }
+
+@media (max-width: 1180px) { .grid-p { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .grid-p { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 680px) {
+  #catalog { scroll-margin-top: 112px; }
+  .cat-top { align-items: center; }
+  .cat-top h2 { font-size: 22px; }
+  .cat-top p { display: none; }
+  .sort { font-size: 0; gap: 0; }
+  .sort select { height: 38px; font-size: 13px; }
+  .filters { margin: 14px -16px 16px; padding: 0 16px 4px; gap: 6px; }
+  .fchip { height: 38px; padding: 0 12px; font-size: 13px; gap: 6px; }
+  .fchip b { min-width: 20px; height: 20px; font-size: 11px; }
+  .grid-p { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .pimg { aspect-ratio: 1 / 1; }
+  .pimg img { padding: 8px; }
+  .pcat { font-size: 10.5px; padding: 3px 7px 3px 6px; left: 6px; top: 6px; }
+  .pcat .i { width: 12px; height: 12px; }
+  .psave { top: 6px; right: 6px; width: 30px; height: 30px; }
+  .pbody { padding: 9px 10px 10px; }
+  .pname { font-size: 14px; }
+  .psub { font-size: 12px; }
+  .pprice { font-size: 12px; margin: 6px 0 8px; }
+  .pcard .btn.block { height: 36px; font-size: 13px; padding: 0 8px; }
+  .ph .i { width: 32px; height: 32px; }
+  .ph span { font-size: 12px; }
+}
+#catalog { scroll-margin-top: 150px; }
+@media (max-width: 680px) {
+  body.is-home .catbar { display: none; }
+  body.is-home #catalog { scroll-margin-top: 70px; }
+  body.is-home .filters { position: sticky; top: 64px; z-index: 30; background: rgba(255, 255, 255, .96); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); margin: 10px -16px 14px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+}

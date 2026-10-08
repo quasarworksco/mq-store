@@ -68,7 +68,7 @@
   const T = {
     es: {
       nav_products: 'Productos', nav_reviews: 'Testimonios', nav_jobs: 'Trabaja con nosotros', nav_contact: 'Contacto',
-      all: 'Todo', search_short: 'Buscar productos', shop_by: 'Compra por categoría', price_ask: 'Consultar precio', cta_short: 'Solicitar info', details: 'Ver detalles', search_ph: 'Buscar: agua, masaje, limpieza, energía…', search_btn: 'Buscar', search_none: 'No encontramos productos con esa búsqueda.', search_try: 'Prueba con',
+      all: 'Todo', search_short: 'Buscar productos', shop_by: 'Compra por categoría', price_ask: 'Consultar precio', sort_by: 'Ordenar por', sort_rec: 'Recomendados', sort_cat: 'Categoría', sort_az: 'Nombre (A–Z)', cta_short: 'Solicitar info', details: 'Ver detalles', search_ph: 'Buscar: agua, masaje, limpieza, energía…', search_btn: 'Buscar', search_none: 'No encontramos productos con esa búsqueda.', search_try: 'Prueba con',
       cta: 'Solicitar información', cta_full: 'Solicitar información o demostración', demo: 'Solicitar una demostración',
       hero_kicker: 'The Florida Mall · Orlando',
       hero_title: 'Agua pura, bienestar y <em>tecnología</em> para tu hogar',
@@ -115,7 +115,7 @@
     },
     en: {
       nav_products: 'Products', nav_reviews: 'Reviews', nav_jobs: 'Careers', nav_contact: 'Contact',
-      all: 'All', search_short: 'Search products', shop_by: 'Shop by category', price_ask: 'Ask for price', cta_short: 'Request info', details: 'Details', search_ph: 'Search: water, massage, cleaning, power…', search_btn: 'Search', search_none: 'No products match your search.', search_try: 'Try',
+      all: 'All', search_short: 'Search products', shop_by: 'Shop by category', price_ask: 'Ask for price', sort_by: 'Sort by', sort_rec: 'Recommended', sort_cat: 'Category', sort_az: 'Name (A–Z)', cta_short: 'Request info', details: 'Details', search_ph: 'Search: water, massage, cleaning, power…', search_btn: 'Search', search_none: 'No products match your search.', search_try: 'Try',
       cta: 'Request information', cta_full: 'Request information or a demo', demo: 'Request a demonstration',
       hero_kicker: 'The Florida Mall · Orlando',
       hero_title: 'Pure water, wellness and <em>technology</em> for your home',
@@ -233,24 +233,68 @@
   const card = (p) => {
     const c = catById(p.cat);
     const n = (p.images || []).length;
-    return `<article class="pcard reveal" style="--c:${c.color}">
+    return `<article class="pcard" style="--c:${c.color}">
       <a class="pimg" href="#/p/${p.slug}" aria-label="${esc(pName(p))}">
-        ${media(p, 600, true)}
-        <span class="pflags">${p.video ? `<span class="pflag">${icon('play')}Video</span>` : ''}${n > 1 ? `<span class="pflag">${icon('camera')}${n}</span>` : ''}</span>
+        ${media(p, 480, true)}
+        <span class="pcat">${icon(c.icon)}${esc(L(c.short || c.name))}</span>
+        <span class="pflags">${p.video ? `<span class="pflag" title="Video">${icon('play')}</span>` : ''}${n > 1 ? `<span class="pflag">${icon('camera')}${n}</span>` : ''}</span>
       </a>
       <button class="psave ${inList(p.slug) ? 'on' : ''}" data-save="${p.slug}" aria-pressed="${inList(p.slug)}" title="${t('add_list')}" aria-label="${t('add_list')}">${icon('bookmark', 'sm')}</button>
       <div class="pbody">
         <div class="pbrand">${esc(p.brand || L(c.name))}</div>
         <h3 class="pname"><a href="#/p/${p.slug}">${esc(pName(p))}</a></h3>
         <p class="psub">${esc(L(p.subtitle))}</p>
-        <div class="pprice">${icon('tag', 'sm')}${t('price_ask')}</div>
-        <div class="pact">
-          <button class="btn primary sm" data-lead="${p.slug}">${t('cta_short')}</button>
-          <a class="btn ghost sm" href="#/p/${p.slug}">${t('details')}</a>
-        </div>
+        <div class="pprice">${t('price_ask')}</div>
+        <button class="btn primary sm block" data-lead="${p.slug}">${t('cta_short')}</button>
       </div>
     </article>`;
   };
+
+  /* ---------- Catálogo: todos juntos, con filtro por categoría y orden ---------- */
+  let filter = '';
+  let sort = store.get('mq_sort', 'rec');
+  function sorted() {
+    const list = products.filter((p) => !filter || p.cat === filter);
+    const ci = (p) => cats.findIndex((c) => c.id === p.cat);
+    if (sort === 'az') return list.slice().sort((a, b) => pName(a).localeCompare(pName(b), lang));
+    if (sort === 'cat') return list.slice().sort((a, b) => ci(a) - ci(b) || a.order - b.order);
+    return list.slice().sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || a.order - b.order);
+  }
+  function catalogHTML() {
+    const c = filter && catById(filter);
+    return `
+      <div class="cat-top">
+        <div><h2>${c ? esc(L(c.name)) : t('prod_t')}</h2><p>${c ? esc(L(c.tagline)) : t('prod_p')}</p></div>
+        <label class="sort">${t('sort_by')}<select id="sortSel">
+          <option value="rec" ${sort === 'rec' ? 'selected' : ''}>${t('sort_rec')}</option>
+          <option value="cat" ${sort === 'cat' ? 'selected' : ''}>${t('sort_cat')}</option>
+          <option value="az" ${sort === 'az' ? 'selected' : ''}>${t('sort_az')}</option>
+        </select></label>
+      </div>
+      <div class="filters" role="tablist">
+        <button class="fchip ${!filter ? 'on' : ''}" data-filter="" style="--c:#1d5bd8">${icon('grid', 'sm')}${t('all')}<b>${products.length}</b></button>
+        ${cats.filter((x) => inCat(x.id).length).map((x) => `<button class="fchip ${filter === x.id ? 'on' : ''}" data-filter="${x.id}" style="--c:${x.color}">${icon(x.icon, 'sm')}${esc(L(x.short || x.name))}<b>${inCat(x.id).length}</b></button>`).join('')}
+      </div>
+      <div class="grid-p" id="catalogGrid">${sorted().map(card).join('')}</div>`;
+  }
+  function paintCatalog(scroll) {
+    const box = $('#catalog');
+    if (!box) return false;
+    box.innerHTML = catalogHTML();
+    catbar(filter);
+    const on = $('.filters .fchip.on');
+    if (on) { const f = on.parentElement; f.scrollLeft = on.offsetLeft - (f.clientWidth - on.offsetWidth) / 2; }
+    if (scroll) box.scrollIntoView({ behavior: 'smooth' });
+    return true;
+  }
+  function setFilter(id, scroll) {
+    filter = id && catById(id) ? id : '';
+    const h = filter ? '#/c/' + filter : '#/';
+    if (location.hash !== h) history.replaceState(null, '', h);
+    if (!paintCatalog(scroll)) { pendingScroll = 'catalog'; route(); }
+    document.title = filter ? `${L(catById(filter).name)} · MQ Store` : homeTitle();
+  }
+  const homeTitle = () => (lang === 'en' ? 'MQ Store · Pure water, wellness and technology for your home' : 'MQ Store · Agua pura, bienestar y tecnología para tu hogar');
 
   function header() {
     $('#nav').innerHTML = `
@@ -263,8 +307,8 @@
     document.documentElement.lang = lang;
   }
   function catbar(active) {
-    $('#catbarIn').innerHTML = `<a class="cb ${!active ? 'on' : ''}" href="#/" data-go="productos">${icon('grid', 'sm')}${t('all')}</a>` +
-      cats.map((c) => `<a class="cb ${active === c.id ? 'on' : ''}" href="#/c/${c.id}" style="--c:${c.color}">${icon(c.icon, 'sm')}${esc(L(c.short || c.name))}</a>`).join('');
+    $('#catbarIn').innerHTML = `<a class="cb ${!active ? 'on' : ''}" href="#/" data-filter="">${icon('grid', 'sm')}${t('all')}</a>` +
+      cats.map((c) => `<a class="cb ${active === c.id ? 'on' : ''}" href="#/c/${c.id}" data-filter="${c.id}" style="--c:${c.color}">${icon(c.icon, 'sm')}${esc(L(c.short || c.name))}</a>`).join('');
     const bar = $('#catbarIn'), on = $('#catbarIn .cb.on');
     if (!active) bar.scrollLeft = 0;
     else if (on) bar.scrollLeft = on.offsetLeft - (bar.clientWidth - on.offsetWidth) / 2;
@@ -303,7 +347,7 @@
           <h1>${t('hero_title')}</h1>
           <p class="lead">${t('hero_lead')}</p>
           <div class="hero-ctas">
-            <a class="btn white" href="#/" data-go="productos">${t('see_catalog')} ${icon('arrow', 'sm')}</a>
+            <a class="btn white" href="#/" data-go="catalog">${t('see_catalog')} ${icon('arrow', 'sm')}</a>
             <button class="btn outline-w" data-lead="">${t('demo')}</button>
           </div>
         </div>
@@ -320,16 +364,7 @@
         ${[['calendar', 't1', 't1s'], ['users', 't2', 't2s'], ['pin', 't3', 't3s'], ['globe', 't4', 't4s']].map(([i, a, b]) => `<div class="trust-item"><span class="ico">${icon(i)}</span><span>${t(a)}<small>${t(b)}</small></span></div>`).join('')}
       </div></section>
 
-      <section class="sec" id="productos"><div class="wrap">
-        ${cats.filter((c) => inCat(c.id).length).map((c) => `
-          <div class="shelf" id="cat-${c.id}" style="--c:${c.color}">
-            <div class="shelf-head reveal">
-              <div><h2>${esc(L(c.name))}</h2><p>${esc(L(c.tagline))}</p></div>
-              <a href="#/c/${c.id}">${t('see_all')} (${inCat(c.id).length}) ${icon('arrow', 'sm')}</a>
-            </div>
-            <div class="grid-p">${inCat(c.id).map(card).join('')}</div>
-          </div>`).join('')}
-      </div></section>
+      <section class="sec" id="productos"><div class="wrap" id="catalog">${catalogHTML()}</div></section>
 
       <section class="sec alt"><div class="wrap">
         <div class="sec-head reveal"><div><div class="kicker">${t('needs_k')}</div><h2>${t('needs_t')}</h2><p>${t('needs_p')}</p></div></div>
@@ -372,18 +407,6 @@
           <div class="cta-band reveal"><h3>${t('band_t')}</h3><p>${t('band_p')}</p><div><button class="btn white" data-lead="">${t('demo')} ${icon('arrow', 'sm')}</button></div></div>
         </div>
       </div></section>`;
-  }
-
-  function categoryPage(id) {
-    const c = catById(id);
-    if (!c) return notFound();
-    return `
-      <section class="page-head" style="--c:${c.color}"><div class="wrap">
-        <div class="crumbs"><a href="#/">MQ Store</a> ${icon('right', 'sm')} <span>${esc(L(c.name))}</span></div>
-        <div class="ph-row"><span class="ico">${icon(c.icon, 'lg')}</span><div><h1>${esc(L(c.name))}</h1><p>${esc(L(c.tagline))}${c.brand ? ` · <strong>${esc(c.brand)}</strong>` : ''} · ${t('products_n', inCat(id).length)}</p></div></div>
-      </div></section>
-      <section class="sec" style="padding-top:32px"><div class="wrap"><div class="grid-p">${inCat(id).map(card).join('')}</div></div></section>
-      <section class="sec alt" style="padding:56px 0"><div class="wrap"><div class="cta-band reveal"><div><h3>${t('band_t')}</h3><p>${t('band_p')}</p></div><button class="btn white" data-lead="">${t('demo')} ${icon('arrow', 'sm')}</button></div></div></section>`;
   }
 
   function productPage(slug) {
@@ -738,10 +761,11 @@
     const [kind, id] = h.split('/');
     const main = $('#main');
     currentSlug = kind === 'p' ? id : '';
-    if (kind === 'c') { main.innerHTML = categoryPage(id); catbar(id); document.title = `${L((catById(id) || {}).name) || ''} · MQ Store`; }
+    if (kind === 'c') { filter = catById(id) ? id : ''; main.innerHTML = home(); catbar(filter); document.title = filter ? `${L(catById(filter).name)} · MQ Store` : homeTitle(); bindJobForm(); if (reviews === null) loadReviews(); if (!pendingScroll && !keepScroll) pendingScroll = 'catalog'; }
     else if (kind === 'p') { const p = prodBySlug(id); main.innerHTML = productPage(id); catbar(p && p.cat); document.title = p ? `${pName(p)} · MQ Store` : 'MQ Store'; }
-    else { main.innerHTML = home(); catbar(''); document.title = lang === 'en' ? 'MQ Store · Pure water, wellness and technology for your home' : 'MQ Store · Agua pura, bienestar y tecnología para tu hogar'; bindJobForm(); if (reviews === null) loadReviews(); }
+    else { filter = ''; main.innerHTML = home(); catbar(''); document.title = homeTitle(); bindJobForm(); if (reviews === null) loadReviews(); }
     document.body.classList.toggle('has-mbar', kind === 'p');
+    document.body.classList.toggle('is-home', kind !== 'p');
     if (pendingScroll) { const el = document.getElementById(pendingScroll); pendingScroll = null; if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 30); }
     else if (!keepScroll) window.scrollTo(0, 0);
     reveal(main);
@@ -764,6 +788,8 @@
       else { pendingScroll = id; if (location.hash === '#/' || !location.hash) route(); else location.hash = '#/'; }
       return;
     }
+    const fl = e.target.closest('[data-filter]');
+    if (fl) { e.preventDefault(); setFilter(fl.dataset.filter, fl.classList.contains('cb') || !$('#catalog')); return; }
     const lead = e.target.closest('[data-lead]');
     if (lead) { e.preventDefault(); openLead(lead.dataset.lead ? [lead.dataset.lead] : [], lead.dataset.kind); return; }
     const save = e.target.closest('[data-save]');
@@ -778,6 +804,9 @@
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName) && $('#overlay').hidden && $('#modal').hidden) { e.preventDefault(); openSearch(); }
+  });
+  document.addEventListener('change', (e) => {
+    if (e.target.id === 'sortSel') { sort = e.target.value; store.set('mq_sort', sort); const g = $('#catalogGrid'); if (g) g.innerHTML = sorted().map(card).join(''); }
   });
   $('#langBtn').onclick = () => { lang = lang === 'es' ? 'en' : 'es'; store.set('mq_lang', lang); render(); };
   $('#listBtn').onclick = openList;
