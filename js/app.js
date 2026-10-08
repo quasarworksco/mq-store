@@ -70,13 +70,13 @@
       nav_products: 'Productos', nav_reviews: 'Testimonios', nav_jobs: 'Trabaja con nosotros', nav_contact: 'Contacto',
       all: 'Todo', search_short: 'Buscar productos', shop_by: 'Compra por categoría', price_ask: 'Consultar precio', made_by: 'Diseñado y desarrollado por', sort_by: 'Ordenar por', sort_rec: 'Recomendados', sort_cat: 'Categoría', sort_az: 'Nombre (A–Z)', cta_short: 'Solicitar info', details: 'Ver detalles', search_ph: 'Buscar: agua, masaje, limpieza, energía…', search_btn: 'Buscar', search_none: 'No encontramos productos con esa búsqueda.', search_try: 'Prueba con',
       cta: 'Solicitar información', cta_full: 'Solicitar información o demostración', demo: 'Solicitar una demostración',
-      hero_kicker: 'The Florida Mall · Orlando',
+      hero_kicker: 'Soluciones para tu hogar',
       hero_title: 'Agua pura, bienestar y <em>tecnología</em> para tu hogar',
       hero_lead: 'Soluciones para el agua, la limpieza, el descanso, el exterior y la energía de tu hogar. Te asesoramos y te mostramos cómo funcionan, sin compromiso.',
       see_catalog: 'Ver catálogo', hero_m1: 'Demostración sin costo', hero_m2: 'Asesoría personalizada', hero_m3: 'Español e inglés',
       finder_t: '¿Qué estás buscando?', finder_p: 'Elige una categoría y descubre sus productos.',
       t1: 'Demostración sin costo', t1s: 'Te mostramos cómo funciona', t2: 'Asesoría personalizada', t2s: 'Según las necesidades de tu hogar',
-      t3: 'The Florida Mall', t3s: 'Orlando, Florida', t4: 'Atención bilingüe', t4s: 'Español e inglés',
+      t3: 'Sin compromiso', t3s: 'Solicita información sin costo', t4: 'Atención bilingüe', t4s: 'Español e inglés',
       needs_k: 'Te orientamos', needs_t: '¿Qué necesitas para tu hogar?', needs_p: 'Cuéntanos qué buscas y te llevamos a la solución indicada.',
       products_n: (n) => `${n} ${n === 1 ? 'producto' : 'productos'}`, see_all: 'Ver todos', photos: (n) => `${n} fotos`,
       prod_k: 'Catálogo', prod_t: 'Nuestros productos', prod_p: 'Sin precios publicados: cada solución se adapta a tu hogar. Solicita información y un asesor te contacta.',
@@ -95,7 +95,7 @@
       band_t: '¿Quieres conocer un producto en persona?', band_p: 'Agenda una demostración sin costo y resuelve todas tus dudas.',
       benefits: 'Beneficios principales', video: 'Míralo en acción', related: 'También te puede interesar',
       no_price: 'El precio depende de tu hogar y del sistema que elijas. Solicita información y te asesoramos sin compromiso.',
-      why1: 'Demostración sin costo', why2: 'Asesoría personalizada', why3: 'The Florida Mall, Orlando',
+      why1: 'Demostración sin costo', why2: 'Asesoría personalizada', why3: 'Sin compromiso',
       add_list: 'Guardar en mi lista', added: 'Guardado en tu lista', removed: 'Quitado de tu lista',
       list_t: 'Mi lista', list_empty: 'Aún no has guardado productos. Usa el botón de guardar en cada producto.', list_send: 'Solicitar información de mi lista', list_keep: 'Seguir viendo',
       f_title_info: 'Solicitar información o demostración', f_sub: 'Te contactamos pronto. Tus datos solo se usan para atender tu solicitud.',
@@ -117,13 +117,13 @@
       nav_products: 'Products', nav_reviews: 'Reviews', nav_jobs: 'Careers', nav_contact: 'Contact',
       all: 'All', search_short: 'Search products', shop_by: 'Shop by category', price_ask: 'Ask for price', made_by: 'Designed & developed by', sort_by: 'Sort by', sort_rec: 'Recommended', sort_cat: 'Category', sort_az: 'Name (A–Z)', cta_short: 'Request info', details: 'Details', search_ph: 'Search: water, massage, cleaning, power…', search_btn: 'Search', search_none: 'No products match your search.', search_try: 'Try',
       cta: 'Request information', cta_full: 'Request information or a demo', demo: 'Request a demonstration',
-      hero_kicker: 'The Florida Mall · Orlando',
+      hero_kicker: 'Solutions for your home',
       hero_title: 'Pure water, wellness and <em>technology</em> for your home',
       hero_lead: 'Solutions for your home’s water, cleaning, relaxation, outdoors and energy. We advise you and show you how they work, with no obligation.',
       see_catalog: 'Browse catalog', hero_m1: 'Free demonstration', hero_m2: 'Personalized advice', hero_m3: 'Spanish & English',
       finder_t: 'What are you looking for?', finder_p: 'Pick a category and discover its products.',
       t1: 'Free demonstration', t1s: 'We show you how it works', t2: 'Personalized advice', t2s: 'Based on your home’s needs',
-      t3: 'The Florida Mall', t3s: 'Orlando, Florida', t4: 'Bilingual service', t4s: 'Spanish & English',
+      t3: 'No obligation', t3s: 'Request information for free', t4: 'Bilingual service', t4s: 'Spanish & English',
       needs_k: 'We guide you', needs_t: 'What does your home need?', needs_p: 'Tell us what you’re looking for and we’ll take you to the right solution.',
       products_n: (n) => `${n} ${n === 1 ? 'product' : 'products'}`, see_all: 'See all', photos: (n) => `${n} photos`,
       prod_k: 'Catalog', prod_t: 'Our products', prod_p: 'No published prices: every solution is tailored to your home. Request information and an advisor will reach out.',
@@ -142,7 +142,7 @@
       band_t: 'Want to see a product in person?', band_p: 'Book a free demonstration and get all your questions answered.',
       benefits: 'Key benefits', video: 'See it in action', related: 'You may also like',
       no_price: 'Pricing depends on your home and the system you choose. Request information and we’ll advise you with no obligation.',
-      why1: 'Free demonstration', why2: 'Personalized advice', why3: 'The Florida Mall, Orlando',
+      why1: 'Free demonstration', why2: 'Personalized advice', why3: 'No obligation',
       add_list: 'Save to my list', added: 'Saved to your list', removed: 'Removed from your list',
       list_t: 'My list', list_empty: 'You haven’t saved any products yet. Use the save button on each product.', list_send: 'Request info for my list', list_keep: 'Keep browsing',
       f_title_info: 'Request information or a demo', f_sub: 'We’ll contact you soon. Your details are only used to handle your request.',
@@ -333,7 +333,7 @@
           <li><a href="${esc(ct.mapsUrl)}" target="_blank" rel="noopener">${esc(ct.location)}<br>${esc(ct.address)}</a></li>
         </ul></div>
       </div>
-      <div class="foot-bottom"><span>© ${new Date().getFullYear()} MQ Store · Orlando, Florida. ${t('rights')}</span><a class="sign" href="https://dgpglobalgroup.com" target="_blank" rel="noopener">${t('made_by')} <b>DGP Global Group</b></a></div>
+      <div class="foot-bottom"><span>© ${new Date().getFullYear()} MQ Store. ${t('rights')}</span><a class="sign" href="https://dgpglobalgroup.com" target="_blank" rel="noopener">${t('made_by')} <b>DGP Global Group</b></a></div>
     </div>`;
   }
   const prettyPhone = (p) => { const d = String(p).replace(/\D/g, '').slice(-10); return d.length === 10 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : p; };
@@ -374,7 +374,7 @@
       </div></section>
 
       <section class="trust"><div class="wrap trust-in">
-        ${[['calendar', 't1', 't1s'], ['users', 't2', 't2s'], ['pin', 't3', 't3s'], ['globe', 't4', 't4s']].map(([i, a, b]) => `<div class="trust-item"><span class="ico">${icon(i)}</span><span>${t(a)}<small>${t(b)}</small></span></div>`).join('')}
+        ${[['calendar', 't1', 't1s'], ['users', 't2', 't2s'], ['shield', 't3', 't3s'], ['globe', 't4', 't4s']].map(([i, a, b]) => `<div class="trust-item"><span class="ico">${icon(i)}</span><span>${t(a)}<small>${t(b)}</small></span></div>`).join('')}
       </div></section>
 
       <section class="sec" id="productos"><div class="wrap" id="catalog">${catalogHTML()}</div></section>
@@ -424,7 +424,7 @@
 
   // Imagen de la portada: la foto que se suba en el CRM (Datos de contacto → Foto de portada) o una ilustración del hogar
   function heroArt() {
-    if (contact.heroImage) return `<div class="hero-art hero-photo"><img src="${esc(img(contact.heroImage, 1200))}" alt="MQ Store"><span class="hp-badge">${icon('pin', 'sm')}The Florida Mall · Orlando</span></div>`;
+    if (contact.heroImage) return `<div class="hero-art hero-photo"><img src="${esc(img(contact.heroImage, 1200))}" alt="MQ Store"></div>`;
     return `<div class="hero-art" aria-hidden="true">
       <svg class="home-ill" viewBox="0 0 560 480" fill="none">
         <defs>
@@ -474,7 +474,6 @@
         <path class="spark s3" d="M96 180 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" fill="#c4b5fd"/>
       </svg>
       <span class="hchip hchip1">${icon('home', 'sm')}${t('hero_m1')}</span>
-      <span class="hchip hchip2">${icon('pin', 'sm')}The Florida Mall</span>
     </div>`;
   }
 
@@ -508,7 +507,7 @@
                 ${contact.whatsapp ? `<a class="btn wa" href="${waLink(p)}" target="_blank" rel="noopener">${icon('wa', 'sm')} WhatsApp</a>` : ''}
               </div>
             </div>
-            <div class="why"><div>${icon('home')}${t('why1')}</div><div>${icon('users')}${t('why2')}</div><div>${icon('pin')}${t('why3')}</div></div>
+            <div class="why"><div>${icon('home')}${t('why1')}</div><div>${icon('users')}${t('why2')}</div><div>${icon('shield')}${t('why3')}</div></div>
             <div class="no-price">${icon('info', 'sm')}<span>${t('no_price')}</span></div>
           </div>
         </div>
@@ -619,9 +618,9 @@
   }
   async function loadReviews() {
     try {
-      const { db, fs } = await firebase();
-      const snap = await fs.getDocs(fs.query(fs.collection(db, 'reviews'), fs.orderBy('createdAt', 'desc'), fs.limit(12)));
-      reviews = snap.docs.map((d) => d.data()).filter((r) => r.text && r.name).map((r) => Object.assign(r, { rating: Math.max(1, Math.min(5, Number(r.rating) || 5)) }));
+      const list = await restList('reviews');
+      reviews = list.filter((r) => r.text && r.name).sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt))).slice(0, 12)
+        .map((r) => Object.assign(r, { rating: Math.max(1, Math.min(5, Number(r.rating) || 5)) }));
     } catch (e) { reviews = []; console.warn('Reseñas:', e.message); }
     const box = $('#reviews');
     if (box) { box.innerHTML = reviewsHTML(); reveal(box); }
@@ -641,17 +640,54 @@
     }
     return fb;
   }
+  // Lectura directa (REST) de Firestore: rápida y sin cargar el SDK completo
+  const REST = `https://firestore.googleapis.com/v1/projects/${CFG.firebase.projectId}/databases/(default)/documents`;
+  function fromValue(v) {
+    if (!v || typeof v !== 'object') return null;
+    if ('stringValue' in v) return v.stringValue;
+    if ('booleanValue' in v) return v.booleanValue;
+    if ('integerValue' in v) return Number(v.integerValue);
+    if ('doubleValue' in v) return v.doubleValue;
+    if ('timestampValue' in v) return v.timestampValue;
+    if ('nullValue' in v) return null;
+    if ('arrayValue' in v) return (v.arrayValue.values || []).map(fromValue);
+    if ('mapValue' in v) return fromFields(v.mapValue.fields || {});
+    return null;
+  }
+  const fromFields = (f) => Object.fromEntries(Object.entries(f || {}).map(([k, v]) => [k, fromValue(v)]));
+  async function restList(col, query = '') {
+    const out = [];
+    let token = '';
+    do {
+      const res = await fetch(`${REST}/${col}?pageSize=300&key=${CFG.firebase.apiKey}${query}${token ? '&pageToken=' + encodeURIComponent(token) : ''}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`${col}: ${res.status}`);
+      const j = await res.json();
+      (j.documents || []).forEach((d) => out.push(Object.assign({ _id: d.name.split('/').pop() }, fromFields(d.fields))));
+      token = j.nextPageToken || '';
+    } while (token);
+    return out;
+  }
   // Fotos, textos y productos editados en el CRM (se guardan para la próxima visita)
+  let catalogLoading = false;
   async function loadCatalog() {
+    if (catalogLoading) return;
+    catalogLoading = true;
     try {
-      const { db, fs } = await firebase();
-      const snap = await fs.getDocs(fs.collection(db, 'catalog'));
+      let docs;
+      try { docs = await restList('catalog'); }
+      catch (e) {
+        console.warn('Catálogo (REST):', e.message);
+        const { db, fs } = await firebase();
+        const snap = await fs.getDocs(fs.collection(db, 'catalog'));
+        docs = snap.docs.map((d) => Object.assign({ _id: d.id }, d.data()));
+      }
       const over = {};
-      snap.docs.forEach((d) => { over[d.id] = d.data(); });
+      docs.forEach((d) => { const id = d._id; delete d._id; over[id] = d; });
       const before = JSON.stringify(store.get('mq_catalog_cache', null));
       store.set('mq_catalog_cache', over);
       if (JSON.stringify(over) !== before) { build(over); const y = window.scrollY; render(); window.scrollTo(0, y); }
     } catch (e) { console.warn('Catálogo:', e.message); }
+    catalogLoading = false;
   }
   async function sendLead(data) {
     const { db, fs } = await firebase();
@@ -885,4 +921,5 @@
   window.addEventListener('hashchange', () => route());
   header(); footer(); route(); paintList(); waFloat();
   loadCatalog();
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') loadCatalog(); });
 })();
