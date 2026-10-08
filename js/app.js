@@ -36,6 +36,7 @@
     chair: '<path d="M7 3h6a4 4 0 0 1 4 4v6H9a2 2 0 0 1-2-2z"/><path d="M5 13h14v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2zM7 18l-1 3M17 18l1 3"/>',
     leaf: '<path d="M11 20A7 7 0 0 1 4 13c0-6 7-10 16-10 0 9-4 16-10 16z"/><path d="M4 21c4-6 8-9 13-12"/>',
     bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+    tag: '<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><path d="M7 7h.01"/>',
     grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     check: '<path d="M20 6L9 17l-5-5"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -67,7 +68,7 @@
   const T = {
     es: {
       nav_products: 'Productos', nav_reviews: 'Testimonios', nav_jobs: 'Trabaja con nosotros', nav_contact: 'Contacto',
-      all: 'Todo', search_short: 'Buscar productos', search_ph: 'Buscar: agua, masaje, limpieza, energía…', search_btn: 'Buscar', search_none: 'No encontramos productos con esa búsqueda.', search_try: 'Prueba con',
+      all: 'Todo', search_short: 'Buscar productos', shop_by: 'Compra por categoría', price_ask: 'Consultar precio', cta_short: 'Solicitar info', details: 'Ver detalles', search_ph: 'Buscar: agua, masaje, limpieza, energía…', search_btn: 'Buscar', search_none: 'No encontramos productos con esa búsqueda.', search_try: 'Prueba con',
       cta: 'Solicitar información', cta_full: 'Solicitar información o demostración', demo: 'Solicitar una demostración',
       hero_kicker: 'The Florida Mall · Orlando',
       hero_title: 'Agua pura, bienestar y <em>tecnología</em> para tu hogar',
@@ -114,7 +115,7 @@
     },
     en: {
       nav_products: 'Products', nav_reviews: 'Reviews', nav_jobs: 'Careers', nav_contact: 'Contact',
-      all: 'All', search_short: 'Search products', search_ph: 'Search: water, massage, cleaning, power…', search_btn: 'Search', search_none: 'No products match your search.', search_try: 'Try',
+      all: 'All', search_short: 'Search products', shop_by: 'Shop by category', price_ask: 'Ask for price', cta_short: 'Request info', details: 'Details', search_ph: 'Search: water, massage, cleaning, power…', search_btn: 'Search', search_none: 'No products match your search.', search_try: 'Try',
       cta: 'Request information', cta_full: 'Request information or a demo', demo: 'Request a demonstration',
       hero_kicker: 'The Florida Mall · Orlando',
       hero_title: 'Pure water, wellness and <em>technology</em> for your home',
@@ -206,7 +207,7 @@
     const u = p.images && p.images[0];
     if (u) return `<img src="${esc(img(u, w))}" alt="${esc(pName(p))}" loading="lazy">${alt && p.images[1] ? `<img class="alt" src="${esc(img(p.images[1], w))}" alt="" loading="lazy">` : ''}`;
     const c = catById(p.cat) || cats[0];
-    return `<div class="ph" role="img" aria-label="${esc(pName(p))}"><div class="ph-in"><div class="ph-ico">${icon(c.icon)}</div><div class="ph-name">${esc(p.brand || pName(p))}</div></div></div>`;
+    return `<div class="ph" role="img" aria-label="${esc(pName(p))}" style="--c:${c.color}">${icon(c.icon)}<span>${esc(p.brand || pName(p))}</span></div>`;
   }
 
   /* ---------- Enlace de cada agente (?a=codigo) ---------- */
@@ -232,19 +233,20 @@
   const card = (p) => {
     const c = catById(p.cat);
     const n = (p.images || []).length;
-    return `<article class="card-p reveal" style="--c:${c.color}">
-      <a class="media" href="#/p/${p.slug}" aria-label="${esc(pName(p))}">
-        ${media(p, 640, true)}
-        <span class="tag"><span class="d"></span>${esc(p.brand || L(c.name))}</span>
-        <span class="pills">${p.video ? `<span class="pill">${icon('play')}Video</span>` : ''}${n > 1 ? `<span class="pill">${icon('camera')}${n}</span>` : ''}</span>
+    return `<article class="pcard reveal" style="--c:${c.color}">
+      <a class="pimg" href="#/p/${p.slug}" aria-label="${esc(pName(p))}">
+        ${media(p, 600, true)}
+        <span class="pflags">${p.video ? `<span class="pflag">${icon('play')}Video</span>` : ''}${n > 1 ? `<span class="pflag">${icon('camera')}${n}</span>` : ''}</span>
       </a>
-      <div class="body">
-        <h4><a href="#/p/${p.slug}">${esc(pName(p))}</a></h4>
-        <div class="sub">${esc(L(p.subtitle))}</div>
-        <ul>${benefitsOf(p).slice(0, 3).map((b) => `<li>${icon('check', 'sm')}<span>${esc(b)}</span></li>`).join('')}</ul>
-        <div class="actions">
-          <button class="btn primary sm" data-lead="${p.slug}">${t('cta')}</button>
-          <button class="icon-btn ${inList(p.slug) ? 'on' : ''}" data-save="${p.slug}" aria-pressed="${inList(p.slug)}" title="${t('add_list')}" aria-label="${t('add_list')}">${icon('bookmark', 'sm')}</button>
+      <button class="psave ${inList(p.slug) ? 'on' : ''}" data-save="${p.slug}" aria-pressed="${inList(p.slug)}" title="${t('add_list')}" aria-label="${t('add_list')}">${icon('bookmark', 'sm')}</button>
+      <div class="pbody">
+        <div class="pbrand">${esc(p.brand || L(c.name))}</div>
+        <h3 class="pname"><a href="#/p/${p.slug}">${esc(pName(p))}</a></h3>
+        <p class="psub">${esc(L(p.subtitle))}</p>
+        <div class="pprice">${icon('tag', 'sm')}${t('price_ask')}</div>
+        <div class="pact">
+          <button class="btn primary sm" data-lead="${p.slug}">${t('cta_short')}</button>
+          <a class="btn ghost sm" href="#/p/${p.slug}">${t('details')}</a>
         </div>
       </div>
     </article>`;
@@ -252,18 +254,17 @@
 
   function header() {
     $('#nav').innerHTML = `
-      <a href="#/" data-go="productos">${t('nav_products')}</a>
       <a href="#/" data-go="testimonios">${t('nav_reviews')}</a>
       <a href="#/" data-go="oportunidades">${t('nav_jobs')}</a>
       <a href="#/" data-go="contacto">${t('nav_contact')}</a>`;
-    $('#searchPill').innerHTML = `${icon('search', 'sm')}<span>${t('search_short')}</span><kbd>/</kbd>`;
+    $('#searchPill').innerHTML = `${icon('search', 'sm')}<span>${t('search_ph')}</span><b>${t('search_btn')}</b>`;
     $('#ctaTop').textContent = t('cta');
     $('#langBtn').textContent = lang === 'es' ? 'EN' : 'ES';
     document.documentElement.lang = lang;
   }
   function catbar(active) {
-    $('#catbarIn').innerHTML = `<a class="cb ${!active ? 'on' : ''}" href="#/" data-go="productos" style="--c:#1d5bd8"><span class="dot">${icon('grid')}</span>${t('all')}</a>` +
-      cats.map((c) => `<a class="cb ${active === c.id ? 'on' : ''}" href="#/c/${c.id}" style="--c:${c.color}"><span class="dot">${icon(c.icon)}</span>${esc(L(c.name))}</a>`).join('');
+    $('#catbarIn').innerHTML = `<a class="cb ${!active ? 'on' : ''}" href="#/" data-go="productos">${icon('grid', 'sm')}${t('all')}</a>` +
+      cats.map((c) => `<a class="cb ${active === c.id ? 'on' : ''}" href="#/c/${c.id}" style="--c:${c.color}">${icon(c.icon, 'sm')}${esc(L(c.short || c.name))}</a>`).join('');
     const bar = $('#catbarIn'), on = $('#catbarIn .cb.on');
     if (!active) bar.scrollLeft = 0;
     else if (on) bar.scrollLeft = on.offsetLeft - (bar.clientWidth - on.offsetWidth) / 2;
@@ -298,41 +299,42 @@
     return `
       <section class="hero">
         <div class="wrap hero-in">
-          <div>
-            <span class="eyebrow"><span class="dot"></span>${t('hero_kicker')}</span>
-            <h1>${t('hero_title')}</h1>
-            <p class="lead">${t('hero_lead')}</p>
-            <button class="hero-search" data-search type="button">${icon('search')}<span>${t('search_ph')}</span><b>${t('search_btn')}</b></button>
-            <div class="hero-ctas">
-              <a class="btn white" href="#/" data-go="productos">${t('see_catalog')} ${icon('arrow', 'sm')}</a>
-              <button class="btn outline-w" data-lead="">${t('demo')}</button>
-            </div>
-            <div class="hero-meta"><span>${icon('check', 'sm')}${t('hero_m1')}</span><span>${icon('check', 'sm')}${t('hero_m2')}</span><span>${icon('check', 'sm')}${t('hero_m3')}</span></div>
-          </div>
-          <div class="finder">
-            <h2>${t('finder_t')}</h2><p>${t('finder_p')}</p>
-            <div class="finder-grid">${cats.map((c) => `<a class="ft" href="#/c/${c.id}" style="--c:${c.color}"><span class="ico">${icon(c.icon)}</span><strong>${esc(L(c.name))}</strong><small>${t('products_n', inCat(c.id).length)} →</small></a>`).join('')}</div>
+          <span class="eyebrow"><span class="dot"></span>${t('hero_kicker')}</span>
+          <h1>${t('hero_title')}</h1>
+          <p class="lead">${t('hero_lead')}</p>
+          <div class="hero-ctas">
+            <a class="btn white" href="#/" data-go="productos">${t('see_catalog')} ${icon('arrow', 'sm')}</a>
+            <button class="btn outline-w" data-lead="">${t('demo')}</button>
           </div>
         </div>
       </section>
+
+      <section class="shopcats"><div class="wrap">
+        <div class="shopcats-card">
+          <div class="shopcats-head"><h2>${t('shop_by')}</h2><button class="link" data-search>${icon('search', 'sm')} ${t('search_short')}</button></div>
+          <div class="shopcats-grid">${cats.map((c) => `<a class="sc" href="#/c/${c.id}" style="--c:${c.color}"><span class="sc-ico">${icon(c.icon, 'lg')}</span><strong>${esc(L(c.short || c.name))}</strong><small>${t('products_n', inCat(c.id).length)}</small></a>`).join('')}</div>
+        </div>
+      </div></section>
 
       <section class="trust"><div class="wrap trust-in">
         ${[['calendar', 't1', 't1s'], ['users', 't2', 't2s'], ['pin', 't3', 't3s'], ['globe', 't4', 't4s']].map(([i, a, b]) => `<div class="trust-item"><span class="ico">${icon(i)}</span><span>${t(a)}<small>${t(b)}</small></span></div>`).join('')}
       </div></section>
 
-      <section class="sec"><div class="wrap">
+      <section class="sec" id="productos"><div class="wrap">
+        ${cats.filter((c) => inCat(c.id).length).map((c) => `
+          <div class="shelf" id="cat-${c.id}" style="--c:${c.color}">
+            <div class="shelf-head reveal">
+              <div><h2>${esc(L(c.name))}</h2><p>${esc(L(c.tagline))}</p></div>
+              <a href="#/c/${c.id}">${t('see_all')} (${inCat(c.id).length}) ${icon('arrow', 'sm')}</a>
+            </div>
+            <div class="grid-p">${inCat(c.id).map(card).join('')}</div>
+          </div>`).join('')}
+      </div></section>
+
+      <section class="sec alt"><div class="wrap">
         <div class="sec-head reveal"><div><div class="kicker">${t('needs_k')}</div><h2>${t('needs_t')}</h2><p>${t('needs_p')}</p></div></div>
         <div class="needs">${(BASE.needs || []).filter((n) => n.to.startsWith('c/') ? catById(n.to.slice(2)) : prodBySlug(n.to.slice(2))).map((n) => `
           <a class="need reveal" href="#/${n.to}" style="--c:${n.color}"><span class="ico">${icon(n.icon)}</span><span><strong>${esc(L(n.title))}</strong><small>${esc(L(n.text))}</small></span><span class="go">${icon('right', 'sm')}</span></a>`).join('')}</div>
-      </div></section>
-
-      <section class="sec alt" id="productos"><div class="wrap">
-        <div class="sec-head reveal"><div><div class="kicker">${t('prod_k')}</div><h2>${t('prod_t')}</h2><p>${t('prod_p')}</p></div></div>
-        ${cats.filter((c) => inCat(c.id).length).map((c, i) => `
-          <div class="cat-block reveal" style="--c:${c.color}" id="cat-${c.id}">
-            <div class="cat-title"><span class="ico">${icon(c.icon, 'lg')}</span><div><div class="num">${String(i + 1).padStart(2, '0')}${c.brand ? ' · ' + esc(c.brand) : ''}</div><h3>${esc(L(c.name))}</h3><p>${esc(L(c.tagline))}</p></div><a href="#/c/${c.id}">${t('see_all')} ${icon('arrow', 'sm')}</a></div>
-            <div class="grid-p">${inCat(c.id).map(card).join('')}</div>
-          </div>`).join('')}
       </div></section>
 
       <section class="sec"><div class="wrap">
@@ -377,12 +379,11 @@
     if (!c) return notFound();
     return `
       <section class="page-head" style="--c:${c.color}"><div class="wrap">
-        <div class="crumbs"><a href="#/">MQ Store</a> / <span>${esc(L(c.name))}</span></div>
-        <h1><span class="ico">${icon(c.icon, 'lg')}</span>${esc(L(c.name))}</h1>
-        <p>${esc(L(c.tagline))}${c.brand ? ` · <strong>${esc(c.brand)}</strong>` : ''}</p>
+        <div class="crumbs"><a href="#/">MQ Store</a> ${icon('right', 'sm')} <span>${esc(L(c.name))}</span></div>
+        <div class="ph-row"><span class="ico">${icon(c.icon, 'lg')}</span><div><h1>${esc(L(c.name))}</h1><p>${esc(L(c.tagline))}${c.brand ? ` · <strong>${esc(c.brand)}</strong>` : ''} · ${t('products_n', inCat(id).length)}</p></div></div>
       </div></section>
-      <section class="sec" style="padding-top:40px"><div class="wrap"><div class="grid-p">${inCat(id).map(card).join('')}</div></div></section>
-      <section class="sec alt" style="padding-top:56px"><div class="wrap"><div class="cta-band reveal"><h3>${t('band_t')}</h3><p>${t('band_p')}</p><div><button class="btn white" data-lead="">${t('demo')} ${icon('arrow', 'sm')}</button></div></div></div></section>`;
+      <section class="sec" style="padding-top:32px"><div class="wrap"><div class="grid-p">${inCat(id).map(card).join('')}</div></div></section>
+      <section class="sec alt" style="padding:56px 0"><div class="wrap"><div class="cta-band reveal"><div><h3>${t('band_t')}</h3><p>${t('band_p')}</p></div><button class="btn white" data-lead="">${t('demo')} ${icon('arrow', 'sm')}</button></div></div></section>`;
   }
 
   function productPage(slug) {

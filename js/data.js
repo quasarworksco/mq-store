@@ -11,22 +11,22 @@
    ========================================================= */
 window.MQ_DATA = {
   categories: [
-    { id: 'agua', color: '#0ea5e9', icon: 'drop',
+    { id: 'agua', short: { es: 'Agua', en: 'Water' }, color: '#0ea5e9', icon: 'drop',
       name: { es: 'Agua pura y bienestar', en: 'Pure water & wellness' },
       tagline: { es: 'Agua más suave, purificada y adaptada a tu hogar.', en: 'Softer, purified water tailored to your home.' } },
-    { id: 'limpieza', color: '#14b8a6', icon: 'sparkle',
+    { id: 'limpieza', short: { es: 'Limpieza', en: 'Cleaning' }, color: '#14b8a6', icon: 'sparkle',
       name: { es: 'Limpieza y cuidado del hogar', en: 'Home cleaning & care' },
       tagline: { es: 'Un hogar más limpio y fresco todos los días.', en: 'A cleaner, fresher home every day.' } },
-    { id: 'cocina', color: '#f97316', icon: 'pot',
+    { id: 'cocina', short: { es: 'Cocina', en: 'Kitchen' }, color: '#f97316', icon: 'pot',
       name: { es: 'Cocina y estilo de vida', en: 'Kitchen & lifestyle' },
       tagline: { es: 'Productos pensados para disfrutar tu cocina.', en: 'Products designed to enjoy your kitchen.' } },
-    { id: 'relajacion', color: '#8b5cf6', icon: 'chair', brand: 'Bodyfriend',
+    { id: 'relajacion', short: { es: 'Relajación', en: 'Relaxation' }, color: '#8b5cf6', icon: 'chair', brand: 'Bodyfriend',
       name: { es: 'Relajación y bienestar personal', en: 'Relaxation & personal wellness' },
       tagline: { es: 'Sillones de masaje Bodyfriend para descansar en casa.', en: 'Bodyfriend massage chairs to unwind at home.' } },
-    { id: 'exteriores', color: '#22c55e', icon: 'leaf',
+    { id: 'exteriores', short: { es: 'Exteriores', en: 'Outdoors' }, color: '#22c55e', icon: 'leaf',
       name: { es: 'Tecnología para exteriores', en: 'Outdoor technology' },
       tagline: { es: 'Tecnología inteligente para el cuidado de tus espacios exteriores.', en: 'Smart technology to care for your outdoor spaces.' } },
-    { id: 'energia', color: '#eab308', icon: 'bolt',
+    { id: 'energia', short: { es: 'Energía', en: 'Power' }, color: '#eab308', icon: 'bolt',
       name: { es: 'Energía y respaldo eléctrico', en: 'Power & energy backup' },
       tagline: { es: 'Energía de respaldo para que tu hogar no se detenga.', en: 'Backup power so your home keeps going.' } }
   ],
