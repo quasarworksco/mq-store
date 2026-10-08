@@ -893,3 +893,9 @@ button { font: inherit; cursor: pointer; color: inherit; }
 .hero-bgphoto { -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 18%, #000 52%); mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 18%, #000 52%); }
 .hero-bgphoto::after { background: linear-gradient(90deg, rgba(10, 31, 68, .55) 0%, rgba(10, 31, 68, .25) 45%, rgba(10, 31, 68, .08) 100%), linear-gradient(180deg, rgba(10, 31, 68, .3) 0%, transparent 25%, transparent 70%, rgba(10, 31, 68, .5) 100%); }
 @media (max-width: 900px) { .hero-bgphoto { -webkit-mask-image: none; mask-image: none; } .hero-bgphoto::after { background: linear-gradient(180deg, rgba(10, 31, 68, .78) 0%, rgba(10, 31, 68, .82) 60%, rgba(10, 31, 68, .92) 100%); } }
+
+/* v8 — Botones en azul más oscuro */
+.btn.primary { background: linear-gradient(135deg, #0b2a5b, #123d7d); box-shadow: 0 10px 24px rgba(11, 42, 91, .28); }
+.btn.primary:hover { background: linear-gradient(135deg, #0d3270, #164a96); box-shadow: 0 14px 30px rgba(11, 42, 91, .36); }
+.search-pill b { background: #0b2a5b; }
+.fchip.on[data-filter=""] { background: #0b2a5b; border-color: #0b2a5b; }
